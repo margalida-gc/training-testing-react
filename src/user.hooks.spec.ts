@@ -26,7 +26,7 @@ describe('useUser specs', () => {
     });
   });
 
-  it('should return user with initial values and setUser method when it calls it', () => {
+  it('should return user with initial values and setUser method when it calls it', async () => {
     // Arrange
     const initialUser: User = {
       name: 'John',
@@ -34,7 +34,9 @@ describe('useUser specs', () => {
     };
 
     // Act
-    const { result } = renderHook(() => useUser(initialUser));
+    const { result, waitForNextUpdate } = renderHook(() => useUser(initialUser));
+
+    await waitForNextUpdate();
 
     act(() => {
       result.current.setUser({
